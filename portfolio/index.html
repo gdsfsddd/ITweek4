@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Persoonlijke portfolio website">
+    <title>Mijn Portfolio</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">Portfolio</a>
+            <ul class="nav__menu">
+                <li><a href="#home" class="nav__link">Home</a></li>
+                <li><a href="#about" class="nav__link">Over mij</a></li>
+                <li><a href="#projects" class="nav__link">Projecten</a></li>
+                <li><a href="#contact" class="nav__link">Contact</a></li>
+            </ul>
+            <button class="nav__toggle" aria-label="Menu toggelen">
+                <span class="hamburger"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero__content">
+                    <h1 class="hero__title">Hallo, ik ben <span class="highlight">Naam</span></h1>
+                    <p class="hero__subtitle">Frontend Developer | Designer</p>
+                    <a href="#projects" class="btn btn--primary">Bekijk mijn werk</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about section">
+            <div class="container">
+                <h2 class="section__title">Over mij</h2>
+                <div class="about__content">
+                    <div class="about__text">
+                        <p>Ik ben een gepassioneerde frontend developer met ervaring in...</p>
+                        <p>Mijn expertise ligt in het bouwen van responsive, toegankelijke en performante webapplicaties.</p>
+                    </div>
+                    <div class="about__skills">
+                        <h3>Vaardigheden</h3>
+                        <ul class="skills__list">
+                            <li>HTML5 & CSS3</li>
+                            <li>JavaScript (ES6+)</li>
+                            <li>React / Vue</li>
+                            <li>Git & GitHub</li>
+                            <li>Responsive Design</li>
+                            <li>WCAG Toegankelijkheid</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects section">
+            <div class="container">
+                <h2 class="section__title">Projecten</h2>
+                <div class="projects__grid" id="projects-grid">
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact section">
+            <div class="container">
+                <h2 class="section__title">Contact</h2>
+                <form class="contact__form" id="contact-form">
+                    <div class="form__group">
+                        <label for="name">Naam</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form__group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form__group">
+                        <label for="message">Bericht</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary">Versturen</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Portfolio. Alle rechten voorbehouden.</p>
+            <div class="footer__social">
+                <a href="#" aria-label="GitHub">GitHub</a>
+                <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                <a href="#" aria-label="Email">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
