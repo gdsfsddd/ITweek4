@@ -145,6 +145,44 @@
     }
 }
 
+@media (max-width: 768px) {
+    .projects__toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: var(--spacing-xs);
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .filters__btn {
+        white-space: nowrap;
+        min-height: 44px;
+    }
+
+    .page-header {
+        padding-top: calc(var(--header-height) + var(--spacing-2xl));
+    }
+
+    .page-header__title {
+        font-size: var(--font-size-2xl);
+    }
+}
+
+@media (max-width: 480px) {
+    .filters__btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .page-header__intro {
+        font-size: var(--font-size-sm);
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

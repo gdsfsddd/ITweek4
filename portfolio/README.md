@@ -6,6 +6,7 @@ Een moderne, responsive portfolio website gebouwd met HTML, CSS en vanilla JavaS
 
 - **Responsive Design** - Werkt op alle schermformaten (mobile, tablet, desktop)
 - **Moderne UI/UX** - Schone, professionele look met smooth animaties
+- **Projectenpagina** - Aparte overzichtspagina met filteren op categorie
 - **Toegankelijkheid** - WCAG 2.1 compliant (semantische HTML, ARIA labels, focus states)
 - **Performance** - Geoptimaliseerde assets, lazy loading, minimaal JavaScript
 - **Dark Mode Support** - Automatische detectie van systeempreferentie
@@ -16,11 +17,13 @@ Een moderne, responsive portfolio website gebouwd met HTML, CSS en vanilla JavaS
 ```
 portfolio/
 ├── index.html              # Hoofdpagina
+├── projecten.html          # Overzichtspagina met alle projecten
 ├── css/
 │   ├── main.css           # Hoofdstyles
 │   └── responsive.css     # Responsive breakpoints & media queries
 ├── js/
-│   └── main.js            # Hoofd JavaScript functionaliteit
+│   ├── projects.js        # Projectdata (enige bron)
+│   └── main.js            # Render-, filter- en interactielogica
 ├── assets/
 │   ├── images/            # Project afbeeldingen, avatar, etc.
 │   └── icons/             # Favicon, social icons, etc.
@@ -68,7 +71,7 @@ Bewerk `index.html`:
 
 ### Projecten toevoegen
 
-Bewerk `js/main.js` in de `projects` array:
+Bewerk `js/projects.js` en voeg een object toe aan de `projects` array:
 
 ```javascript
 const projects = [
@@ -78,12 +81,18 @@ const projects = [
         description: 'Beschrijving van het project',
         image: 'assets/images/mijn-project.jpg',
         tags: ['React', 'TypeScript', 'Tailwind'],
+        category: 'webapplicatie',  // webapplicatie | schoolopdracht | tool
+        year: 2026,
+        status: 'Afgerond',
         demoUrl: 'https://demo-url.com',
         codeUrl: 'https://github.com/gebruiker/repo'
     },
     // Meer projecten...
 ];
 ```
+
+> `category` bepaalt achter welke filterknop het project valt. Laat `demoUrl` of
+> `codeUrl` op `'#'` staan als er nog geen link is: er wordt dan geen dode link getoond.
 
 Voeg project afbeeldingen toe aan `assets/images/`.
 

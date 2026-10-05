@@ -1,57 +1,94 @@
-const projects = [
-    {
-        id: 1,
-        title: 'Project Naam',
-        description: 'Korte beschrijving van het project en wat het doet.',
-        image: 'assets/images/project1.jpg',
-        tags: ['HTML', 'CSS', 'JavaScript'],
-        demoUrl: '#',
-        codeUrl: '#'
-    },
-    {
-        id: 2,
-        title: 'Project Naam',
-        description: 'Korte beschrijving van het project en wat het doet.',
-        image: 'assets/images/project2.jpg',
-        tags: ['React', 'Node.js', 'MongoDB'],
-        demoUrl: '#',
-        codeUrl: '#'
-    },
-    {
-        id: 3,
-        title: 'Project Naam',
-        description: 'Korte beschrijving van het project en wat het doet.',
-        image: 'assets/images/project3.jpg',
-        tags: ['Vue', 'TypeScript', 'Firebase'],
-        demoUrl: '#',
-        codeUrl: '#'
-    }
-];
-
 function createProjectCard(project) {
+    const hasDemo = Boolean(project.demoUrl) && project.demoUrl !== '#';
+    const hasCode = Boolean(project.codeUrl) && project.codeUrl !== '#';
+
+    let links = '';
+    if (hasDemo) {
+        links += `<a href="${project.demoUrl}" class="project-card__link" target="_blank" rel="noopener noreferrer">Demo</a>`;
+    }
+    if (hasCode) {
+        links += `<a href="${project.codeUrl}" class="project-card__link" target="_blank" rel="noopener noreferrer">Code</a>`;
+    }
+    if (!links) {
+        links = '<span class="project-card__soon">Binnenkort beschikbaar</span>';
+    }
+
     return `
-        <article class="project-card">
-            <img src="${project.image}" alt="${project.title}" class="project-card__image" loading="lazy">
+        <article class="project-card" data-category="${project.category}">
+            <img src="${project.image}" alt="Screenshot van ${project.title}" class="project-card__image" loading="lazy">
             <div class="project-card__content">
+                <div class="project-card__meta">
+                    <span>${project.year}</span>
+                    <span>${project.status}</span>
+                </div>
                 <h3 class="project-card__title">${project.title}</h3>
                 <p class="project-card__description">${project.description}</p>
                 <div class="project-card__tags">
                     ${project.tags.map(tag => `<span class="project-card__tag">${tag}</span>`).join('')}
                 </div>
-                <div class="project-card__links">
-                    <a href="${project.demoUrl}" class="project-card__link" target="_blank" rel="noopener noreferrer">Demo</a>
-                    <a href="${project.codeUrl}" class="project-card__link" target="_blank" rel="noopener noreferrer">Code</a>
-                </div>
+                <div class="project-card__links">${links}</div>
             </div>
         </article>
     `;
 }
 
-function renderProjects() {
-    const container = document.getElementById('projects-grid');
-    if (container) {
-        container.innerHTML = projects.map(createProjectCard).join('');
+function renderProjects(containerId, limit) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const list = typeof limit === 'number' ? projects.slice(0, limit) : projects;
+    container.innerHTML = list.map(createProjectCard).join('');
+}
+
+function initFilters() {
+    const filters = document.getElementById('filters');
+    const grid = document.getElementById('projects-grid');
+    if (!filters || !grid) return;
+
+    const buttons = filters.querySelectorAll('.filters__btn');
+    const empty = document.getElementById('projects-empty');
+    const count = document.getElementById('projects-count');
+
+    function applyFilter(category) {
+        let visible = 0;
+
+        grid.querySelectorAll('.project-card').forEach(card => {
+            const show = category === 'all' || card.dataset.category === category;
+            card.hidden = !show;
+            if (show) visible += 1;
+        });
+
+        if (count) {
+            count.textContent = visible + (visible === 1 ? ' project' : ' projecten');
+        }
+        if (empty) {
+            empty.hidden = visible !== 0;
+        }
     }
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            buttons.forEach(other => {
+                other.classList.remove('filters__btn--active');
+                other.setAttribute('aria-pressed', 'false');
+            });
+            button.classList.add('filters__btn--active');
+            button.setAttribute('aria-pressed', 'true');
+            applyFilter(button.dataset.filter);
+        });
+    });
+}
+
+function initActiveNav() {
+    const page = window.location.pathname.split('/').pop() || 'index.html';
+    if (page !== 'projecten.html') return;
+
+    document.querySelectorAll('.nav__link').forEach(link => {
+        if ((link.getAttribute('href') || '').indexOf('projecten') !== -1) {
+            link.classList.add('nav__link--active');
+            link.setAttribute('aria-current', 'page');
+        }
+    });
 }
 
 function initMobileMenu() {
@@ -92,7 +129,8 @@ function initSmoothScroll() {
             const target = document.querySelector(targetId);
             if (target) {
                 e.preventDefault();
-                const headerHeight = document.querySelector('.header').offsetHeight;
+                const headerElement = document.querySelector('.header');
+                const headerHeight = headerElement ? headerElement.offsetHeight : 0;
                 const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
 
                 window.scrollTo({
@@ -161,7 +199,7 @@ function initScrollAnimations() {
 
 function initHeaderScroll() {
     const header = document.querySelector('.header');
-    let lastScroll = 0;
+    if (!header) return;
 
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
@@ -171,13 +209,14 @@ function initHeaderScroll() {
         } else {
             header.style.boxShadow = 'none';
         }
-
-        lastScroll = currentScroll;
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    renderProjects();
+    renderProjects('projects-grid');
+    renderProjects('projects-preview', 3);
+    initFilters();
+    initActiveNav();
     initMobileMenu();
     initSmoothScroll();
     initContactForm();

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Overzicht van alle projecten uit mijn portfolio">
+    <title>Projecten | Mijn Portfolio</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="nav__logo">Portfolio</a>
+            <ul class="nav__menu">
+                <li><a href="index.html" class="nav__link">Home</a></li>
+                <li><a href="index.html#about" class="nav__link">Over mij</a></li>
+                <li><a href="projecten.html" class="nav__link">Projecten</a></li>
+                <li><a href="index.html#contact" class="nav__link">Contact</a></li>
+            </ul>
+            <button class="nav__toggle" aria-label="Menu toggelen" aria-expanded="false">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="Kruimelpad">
+                    <a href="index.html">Home</a>
+                    <span class="breadcrumb__separator" aria-hidden="true">/</span>
+                    <span aria-current="page">Projecten</span>
+                </nav>
+                <h1 class="page-header__title">Projecten</h1>
+                <p class="page-header__intro">
+                    Een overzicht van wat ik heb gebouwd: van kleine tools tot volledige webapplicaties.
+                    Filter op categorie of bekijk de demo en broncode van een project.
+                </p>
+            </div>
+        </section>
+
+        <section class="projects section" id="projects">
+            <div class="container">
+                <div class="projects__toolbar">
+                    <div class="filters" id="filters" role="group" aria-label="Filter projecten op categorie">
+                        <button type="button" class="filters__btn filters__btn--active" data-filter="all" aria-pressed="true">Alle</button>
+                        <button type="button" class="filters__btn" data-filter="webapplicatie" aria-pressed="false">Webapplicatie</button>
+                        <button type="button" class="filters__btn" data-filter="schoolopdracht" aria-pressed="false">Schoolopdracht</button>
+                        <button type="button" class="filters__btn" data-filter="tool" aria-pressed="false">Tool</button>
+                    </div>
+                    <p class="projects__count" id="projects-count" aria-live="polite">3 projecten</p>
+                </div>
+
+                <div class="projects__grid" id="projects-grid">
+                </div>
+
+                <p class="projects-empty" id="projects-empty" hidden>Geen projecten in deze categorie.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Portfolio. Alle rechten voorbehouden.</p>
+            <div class="footer__social">
+                <a href="#" aria-label="GitHub">GitHub</a>
+                <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                <a href="#" aria-label="Email">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/projects.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
